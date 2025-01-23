@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "164772057799",
+    "project_id": "ferpo-2cc7a",
+    "storage_bucket": "ferpo-2cc7a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164772057799:android:236355b1e5957b6c4324e2",
+        "android_client_info": {
+          "package_name": "com.sanad.ferpo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyctV_idODV-yDTLRwa_YbnA0H2AzV5wg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
