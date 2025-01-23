@@ -2,8 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ferpo/authentication/screens/otp.dart';
 import 'package:ferpo/authentication/screens/sign_up_screen.dart';
+import 'package:ferpo/features/on_boarding/bloc/cubit_auth.dart';
+import 'package:ferpo/features/on_boarding/bloc/super_state.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../core/generic_widgets/custom_text_form_field/custom_text_form_field.dart';
@@ -43,22 +46,27 @@ class _SignInScreenState extends State<SignInScreen> {
             SizedBox(
               height: 16,
             ),
-            MainButton(
-              text: AppStrings.signIn.tr(),
-              onPressed: () async {
-                String? otp = await FirebaseMessaging.instance.getToken();
-                await Dio(BaseOptions(baseUrl: 'http://192.168.43.192:33848/api/')).post('otp', data: {
-                  'otpToken': otp,
-                  'phone': emailAddressController.text
-                });
+            BlocConsumer<CubitAuth,SuperState>(
+              builder: (context, state) {
+                return MainButton(
+                  text: AppStrings.signIn.tr(),
+                  onPressed: () async {
+                    context.read<CubitAuth>().loginNumber('', );
 
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => OtpScreen(phone:  emailAddressController.text??''),
-                  ),
-                  (Route<dynamic> route) => false,
+                  },
                 );
-              },
+              }, listener: (BuildContext context, SuperState state) {
+                if(state is LoginSuccessState)
+                  {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => OtpScreen(phone:  emailAddressController.text??''),
+                      ),
+                          (Route<dynamic> route) => false,
+                    );
+                  }
+            },
+
             ),
             SizedBox(
               height: 16,

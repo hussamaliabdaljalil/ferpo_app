@@ -10,14 +10,14 @@ import 'cubit_abstract.dart';
 
 class CubitAuth extends CubitAbstract {
 
-  Future<void> login(String userName, String password) async {
+  Future<void> loginNumber(String phone,) async {
     await requestMain(
-        // isGoToLogin: false,
         request: () async {
           String? fcm=await FirebaseMessaging.instance.getToken();
 
           Response response = await dio
-              .post('login', data: {'email': userName, 'password': password,'fcmToken':fcm});
+              .post('loginNumber', data: {'email': phone,'fcmToken':fcm});
+
           ////print(response.data);
           // User user = User.fromJson(response.data['user']);
           // await GetStorage().write(KeysStorage.user,);
