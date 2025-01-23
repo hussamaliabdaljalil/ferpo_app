@@ -47,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
               text: AppStrings.signIn.tr(),
               onPressed: () async {
                 String? otp = await FirebaseMessaging.instance.getToken();
-                await Dio(BaseOptions(baseUrl: 'http://192.168.43.192:33848/api/')).post('sendVerifiCode', data: {
+                await Dio(BaseOptions(baseUrl: 'http://192.168.43.192:33848/api/')).post('otp', data: {
                   'otpToken': otp,
                   'phone': emailAddressController.text
                 });

@@ -8,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 import '../firebase_options.dart';
 import 'core/constants/app_const.dart';
 import 'core/generic_widgets/bottom_navigation_bar/cubit/bottom_navigation_cubit.dart';
@@ -16,10 +15,10 @@ import 'core/generic_widgets/custom_text_form_field/bloc/text_form_field_cubit.d
 
 void initializeNotifications() async {
   const AndroidInitializationSettings initializationSettingsAndroid =
-  AndroidInitializationSettings('@mipmap/ic_launcher');
+      AndroidInitializationSettings('@mipmap/ic_launcher');
 
   const InitializationSettings initializationSettings =
-  InitializationSettings(android: initializationSettingsAndroid);
+      InitializationSettings(android: initializationSettingsAndroid);
 
   await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
@@ -28,18 +27,20 @@ void initializeNotifications() async {
     },
   );
 }
-Future<void>initNotification()async{
 
-  FirebaseMessaging firebaseMessaging= FirebaseMessaging.instance;
+Future<void> initNotification() async {
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   await firebaseMessaging.requestPermission();
-  print(await firebaseMessaging.getToken());
+  String? fcm = await firebaseMessaging.getToken();
+  print(fcm);
   // FirebaseMessaging.onBackgroundMessage(ttt);
 }
+
 Future<void> showNotification(RemoteMessage message) async {
   await _requestPermission();
   print(message.notification?.title);
   const AndroidNotificationDetails androidPlatformChannelSpecifics =
-  AndroidNotificationDetails(
+      AndroidNotificationDetails(
     'channel_id',
     'channel_name',
     channelDescription: 'This is the description of the channel.',
@@ -48,7 +49,7 @@ Future<void> showNotification(RemoteMessage message) async {
   );
 
   const NotificationDetails platformChannelSpecifics =
-  NotificationDetails(android: androidPlatformChannelSpecifics);
+      NotificationDetails(android: androidPlatformChannelSpecifics);
 
   await flutterLocalNotificationsPlugin.show(
     0,
@@ -57,6 +58,7 @@ Future<void> showNotification(RemoteMessage message) async {
     platformChannelSpecifics,
   );
 }
+
 Future<void> _requestPermission() async {
   if (await Permission.notification.isDenied) {
     await Permission.notification.request();
@@ -64,7 +66,7 @@ Future<void> _requestPermission() async {
 }
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,14 +76,11 @@ void main() async {
   await initNotification();
   initializeNotifications();
   FirebaseMessaging.onMessage.listen(
-        (message) {
-        showNotification(message);
-
+    (message) {
+      showNotification(message);
     },
   );
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-
-  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   await EasyLocalization.ensureInitialized();
   await GetStorage.init();
   runApp(EasyLocalization(
