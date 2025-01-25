@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../firebase_options.dart';
+import 'authentication/bloc/cubit_auth.dart';
 import 'core/constants/app_const.dart';
 import 'core/generic_widgets/bottom_navigation_bar/cubit/bottom_navigation_cubit.dart';
 import 'core/generic_widgets/custom_text_form_field/bloc/text_form_field_cubit.dart';
@@ -105,6 +105,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) {
             return BottomNavigationCubit();
+          },
+        ),
+        BlocProvider(
+          create: (BuildContext context) {
+            return CubitAuth();
           },
         ),
       ],

@@ -25,7 +25,7 @@ class CustomTextFormField extends StatelessWidget {
         return TextFormField(
           controller: controller,
           decoration: InputDecoration(
-            fillColor: AppColors.textFieldColor,
+            fillColor: AppColors.primaryColor,
             filled: true,
             hintText: hintText,
             hintStyle: AppTextStyle.f16W400HintTextColor,

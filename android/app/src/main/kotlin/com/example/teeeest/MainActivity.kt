@@ -1,4 +1,4 @@
-package com.sanad.ferpo
+package com.example.teeeest
 
 import io.flutter.embedding.android.FlutterActivity
 
