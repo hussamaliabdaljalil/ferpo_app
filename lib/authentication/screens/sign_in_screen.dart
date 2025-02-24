@@ -4,8 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ferpo/authentication/bloc/cubit_auth.dart';
 import 'package:ferpo/authentication/bloc/super_state.dart';
 import 'package:ferpo/authentication/screens/sign_up_screen.dart';
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+=======
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+
+>>>>>>> parent of c912a90 (111)
 import '../../core/constants/app_strings.dart';
 import '../../core/generic_widgets/main_button.dart';
 import '../../core/theme/app_text_style.dart';
@@ -80,6 +86,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 return null;
               },
             ),
+<<<<<<< HEAD
             SizedBox(height: 40),
             BlocConsumer<CubitAuth, SuperState>(
               builder: (context, state) {
@@ -107,6 +114,31 @@ class _SignInScreenState extends State<SignInScreen> {
                   cubitAbstract.showToast(state.errorMsg, color: Colors.red);
                 }
               },
+=======
+            CustomTextFormField(
+              hintText: AppStrings.emailAddress.tr(),
+              controller: emailAddressController,
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            MainButton(
+              text: AppStrings.signIn.tr(),
+              onPressed: () async {
+                String? otp = await FirebaseMessaging.instance.getToken();
+                await Dio(BaseOptions(baseUrl: 'http://192.168.43.192:33848/api/')).post('otp', data: {
+                  'otpToken': otp,
+                  'phone': emailAddressController.text
+                });
+
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => OtpScreen(phone:  emailAddressController.text??''),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              },
+>>>>>>> parent of c912a90 (111)
             ),
           ],
         ),

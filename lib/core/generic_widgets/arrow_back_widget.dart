@@ -14,7 +14,7 @@ class ArrowBackWidget extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.primaryColor,
+          color: AppColors.textFieldColor,
           borderRadius: BorderRadius.circular(20),
         ),
         height: 40,
